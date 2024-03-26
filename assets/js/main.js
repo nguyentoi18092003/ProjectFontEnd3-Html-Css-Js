@@ -1,35 +1,23 @@
 //1
-import { fetchApi } from "./fetchApi.js";
-
-const product=document.querySelector("#product");
-//dc lay tu 1
-fetchApi("http://localhost:3000/products")
-.then(data=>{
+import { drawProduct } from "./drawProduct.js";
+//2
+import {buttonSearch,inputSearch, params } from "./variable.js";
+const search=()=>{
+    params.title=inputSearch.value;
+    //title o day la mk dinh nghia ben variable thoi, title hien tren url la nam co dinh o duong dan í
+    // inputSearch la tu 1*, value la gia tri cua dc nhap vao trong o
+    drawProduct();
     
-    const arrayHTML=data.map(item=>{
-        return `
-        <div class="product_item">
-            <div class="product_image">
-                <img src="https://gcs.tripi.vn/public-tripi/tripi-feed/img/474076SPG/cach-doi-dinh-dang-anh-jpg-truc-tiep-tren-iphone_022454763.jpg" alt="${item.title}"/>
-                <div class="product_percent">
-                    ${item.discountPercentage}%
-                </div>
-            </div>
-            <div class="product_content">
-                <h3 class="product_title">${item.title}</h3>
-                <div class="product_meta">
-                    <div class="product_price">
-                        ${item.price}
-                    </div>
-                    <div class="product_stock">
-                        Còn lại: ${item.stock}
-                    </div>
-                </div>
-            </div>
-        </div>
-        `;
-    })
-    const stringHTML=arrayHTML.join("");
-    console.log(stringHTML);
-    product.innerHTML=stringHTML;
+}
+//dc lay tu 1
+drawProduct();
+buttonSearch.addEventListener("click",function(){
+   search();
+});
+inputSearch.addEventListener("keyup",function(e){
+    if(e.key=="Enter"){
+    search();
+    }
 })
+// lang nghe xem phim nguwoi dung vua click la phim gi
+//end search
